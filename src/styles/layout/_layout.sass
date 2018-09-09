@@ -1,0 +1,25 @@
+.row
+    display: flex
+    flex-wrap: wrap
+
+@include gridColumn
+
+@include respondTo('size-sm')
+    @include gridColumn('sm-')
+    @include displayProps('sm-')
+
+@include respondTo('size-md')
+    @include gridColumn('md-')
+    @include displayProps('md-')
+
+@include respondTo('size-lg')
+    @include gridColumn('lg-')
+    @include displayProps('lg-')
+
+@include respondTo('size-xl')
+    @include gridColumn('xl-')
+    @include displayProps('xl-')
+
+@include respondTo('size-retina')
+    @include gridColumn('rt-')
+    @include displayProps('rt-')

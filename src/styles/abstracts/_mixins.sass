@@ -1,0 +1,130 @@
+// Font face
+@mixin fontFace($family, $weight, $fileName, $style: normal)
+    @font-face
+        font-family: $family
+        font-style: $style
+        font-weight: $weight
+        font-display: block
+        src: url('shared/fonts/#{$fileName}.eot?#iefix') format('embedded-opentype'), url('shared/fonts/#{$fileName}.woff') format('woff'), url('shared/fonts/#{$fileName}.ttf') format('truetype'), url('shared/fonts/#{$fileName}.svg##{$family}ttf') format('svg')
+        
+
+// Center immediate child both vertically and horizontally
+@mixin fullCenter
+    display: flex
+    justify-content: center
+    align-items: center
+
+// Center container relative to parent
+@mixin centerContainer($position: relative)
+    position: $position
+    top: 50%
+    left: 50%
+    @include translate(-50%, -50%)
+
+@mixin fullAbsolute
+    position: absolute
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+
+// Set transition property on element
+@mixin transition($property: all, $transitionDuration: $default-transition-duration, $timingFunction: ease-in, $delay: 0s)
+    transition: $property $transitionDuration
+    transition-timing-function: $timingFunction
+    transition-delay: $delay
+
+//animation keyframe 
+@mixin keyframe ($animation_name)
+    @keyframes #{$animation_name}
+        @content
+
+//animate element properties
+@mixin animation ($delay, $duration, $animation, $timingFunction, $iteration: 1, $animation-direction: normal)
+    animation-delay: $delay
+    animation-duration: $duration
+    animation-name: $animation
+    animation-timing-function: $timingFunction
+    animation-iteration-count: $iteration
+    animation-direction: $animation-direction
+
+// Apply media query for specied breakpoint
+@mixin respondTo($breakpoint)
+  @if $breakpoint == "size-xs"
+    @media (max-width: #{$size-sm})
+      @content
+
+  @if $breakpoint == "size-sm"
+    @media (min-width: #{$size-sm})
+      @content
+
+  @else if $breakpoint == "size-md"
+    @media (min-width: #{$size-md})
+      @content
+
+  @else if $breakpoint == "size-lg"
+    @media (min-width: #{$size-lg})
+      @content
+
+  @else if $breakpoint == "size-xl"
+    @media (min-width: #{$size-xl})
+      @content
+
+  @else if $breakpoint == "size-retina"
+    @media (min-width: #{$size-retina})
+      @content
+
+// Create grid column classes
+@mixin gridColumn($modifier: '')
+    @for $i from 1 through $grid-columns
+        .column-#{$modifier}#{$i}
+            flex-basis: $i / 12 * 100%
+            max-width: $i / 12 * 100%
+            padding: 15px
+
+// Create display classes
+@mixin displayProps($modifier: '')
+    .#{$modifier}hidden
+        display: none
+
+    .#{$modifier}block
+        display: block
+
+    .#{$modifier}flex
+        display: flex
+
+// add before pseudo element with content and other properties
+@mixin before($content: '')
+    &:before
+        content: $content
+        @content
+
+// add before pseudo element with content and other properties
+@mixin after($content: '')
+    &:after
+        content: $content
+        @content
+
+// Apply styles that are the same for hover|focus|active state for buttons
+@mixin hoverFocusActiveState
+    &:hover
+        @content
+    &:focus
+        @content
+    &:active
+        @content
+
+@mixin placeHolderStyle
+    &::-webkit-input-placeholder
+        @content
+    &:-ms-input-placeholder
+        @content
+    &::-moz-placeholder
+        @content
+    &:-moz-placeholder
+        @content
+
+@mixin ellipsis
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
